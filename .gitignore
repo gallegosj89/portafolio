@@ -4,3 +4,5 @@ public/
 build/
 library.txt
 members.txt
+library.json
+members.json
