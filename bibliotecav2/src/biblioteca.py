@@ -1,6 +1,7 @@
 '''Módulo para definir las clases de la biblioteca y sus operaciones'''
 
 import json
+from memory_management import memory_management
 
 
 class Genre:
@@ -13,6 +14,10 @@ class Genre:
     BIOGRAPHY = "Biografia"
     OTHER = "Otro"
 
+    @classmethod
+    def all_genres(cls):
+        return [cls.FICTION, cls.NON_FICTION, cls.SCIENCE, cls.HISTORY, cls.FANTASY, cls.BIOGRAPHY, cls.OTHER]
+
 
 class Book:
     '''Clase para definir los libros de la biblioteca'''
@@ -23,6 +28,10 @@ class Book:
         self.publication_year = publication_year
         self.genre = genre
         self.quantity = quantity
+        memory_management.increment_heap_allocations(1)
+
+    def __del__(self):
+        memory_management.increment_heap_deallocations(1)
 
     def to_dict(self):
         '''Método para convertir los datos del libro en un diccionario'''
@@ -82,6 +91,10 @@ class Member:
         self.id = member_id
         self.name = name
         self.issued_books = []
+        memory_management.increment_heap_allocations(1)
+
+    def __del__(self):
+        memory_management.increment_heap_deallocations(1)
 
     def to_dict(self):
         '''Método para convertir los datos del miembro en un diccionario'''
@@ -105,11 +118,16 @@ class Library:
         '''Constructor de la clase Library'''
         self.books = []
         self.members = []
+        memory_management.increment_heap_allocations(1)
+
+    def __del__(self):
+        memory_management.increment_heap_deallocations(1)
 
     def add_book(self, book):
         '''Método para agregar un libro a la biblioteca'''
         self.books.append(book)
         print("\nEl libro fue agregado exitosamente!\n")
+        memory_management.display_memory_usage()
 
     def find_book_by_id(self, book_id):
         '''Método para buscar un libro por su ID'''
@@ -128,11 +146,13 @@ class Library:
             print(f"ID libro: {book.id}\nTitulo: {book.title}\nAutor: {book.author}\nAno de publicacion: {book.publication_year}\nGenero: {book.genre}\nCantidad: {book.quantity}\n")
             if isinstance(book, DigitalBook):
                 print(f"Formato de archivo: {book.file_format}\n")
+        memory_management.display_memory_usage()
 
     def add_member(self, member):
         '''Método para agregar un miembro a la biblioteca'''
         self.members.append(member)
         print("\nMiembro agregado exitosamente!\n")
+        memory_management.display_memory_usage()
 
     def issue_book(self, book_id, member_id):
         '''Método para prestar un libro a un miembro'''
@@ -144,6 +164,7 @@ class Library:
             print("\nLibro prestado satisfactoriamente!\n")
         else:
             print("\nLibro o miembro no encontrados.\n")
+        memory_management.display_memory_usage()
 
     def return_book(self, book_id, member_id):
         '''Método para devolver un libro prestado por un miembro'''
@@ -155,6 +176,7 @@ class Library:
             print("\nLibro devuelto satisfactoriamente!\n")
         else:
             print("\nLibro o miembro no encontrados.\n")
+        memory_management.display_memory_usage()
 
     def find_member_by_id(self, member_id):
         '''Método para buscar un miembro por su ID'''
@@ -175,6 +197,7 @@ class Library:
                 book = self.find_book_by_id(book_id)
                 if book:
                     print(f"  Libro ID: {book.id}\n  Titulo: {book.title}\n  Autor: {book.author}\n")
+        memory_management.display_memory_usage()
 
     def search_member(self, member_id):
         '''Método para buscar un miembro por su ID y mostrar los libros prestados'''
@@ -187,12 +210,14 @@ class Library:
                     print(f"  Libro ID: {book.id}\n  Titulo: {book.title}\n  Autor: {book.author}\n")
         else:
             print("\nMiembro no encontrado.\n")
+        memory_management.display_memory_usage()
 
     def save_library_to_file(self, filename):
         '''Método para guardar la biblioteca en un archivo JSON'''
         with open(filename, 'w', encoding='UTF-8') as file:
             json.dump([book.to_dict() for book in self.books], file)
         print(f"Biblioteca guardada exitosamente en {filename}\n")
+        memory_management.display_memory_usage()
 
     def load_library_from_file(self, filename):
         '''Método para cargar la biblioteca desde un archivo JSON'''
@@ -203,12 +228,14 @@ class Library:
             print(f"Biblioteca cargada exitosamente desde {filename}\n")
         except FileNotFoundError:
             print("Error al abrir el archivo para cargar la biblioteca.\n")
+        memory_management.display_memory_usage()
 
     def save_members_to_file(self, filename):
         '''Método para guardar los miembros en un archivo JSON'''
         with open(filename, 'w', encoding='UTF-8') as file:
             json.dump([member.to_dict() for member in self.members], file)
         print(f"Miembros guardados exitosamente en {filename}\n")
+        memory_management.display_memory_usage()
 
     def load_members_from_file(self, filename):
         '''Método para cargar los miembros desde un archivo JSON'''
@@ -219,6 +246,7 @@ class Library:
             print(f"Miembros cargados exitosamente desde {filename}\n")
         except FileNotFoundError:
             print("Error al abrir el archivo para cargar los miembros.\n")
+        memory_management.display_memory_usage()
 
 
 def main():
