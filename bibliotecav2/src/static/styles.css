@@ -1,0 +1,22 @@
+/* Custom styles for the Biblioteca web app */
+body {
+    padding-top: 20px;
+}
+
+h1, h2 {
+    color: #343a40;
+}
+
+form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#books, #members {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
