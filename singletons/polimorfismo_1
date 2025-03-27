@@ -1,0 +1,93 @@
+import java.time.LocalDate;
+
+public class Persona {
+  String nombre;
+  int ine;
+
+  public Persona(String nombre, int ine){
+    this.nombre = nombre;
+    this.ine = ine;
+  }
+
+  public String inscribirse(String actividad){
+    return "La inscripción de "+nombre+" para "+actividad+" se ha realizado satisfactoriamente.";
+  }
+}
+
+public class Materia {
+    String titulo;
+    String carrera;
+    int cupo;
+
+    public Materia(String titulo, String carrera) {
+      this.titulo=titulo;
+      this.carrera=carrera;
+      this.cupo=40;
+    }
+
+    public int getCupo() {
+      return cupo;
+    }
+
+    public int tomarCupo() {
+      if(cupo==0) return cupo;
+      return this.cupo=cupo-1;
+    }
+
+    public String getTitulo() {
+      return titulo;
+    }
+  }
+
+public class Estudiante extends Persona {
+  String carrera;
+  int matricula;
+  String ciclo;
+
+  public Estudiante(String nombre, int ine, String carrera, int matricula, String ciclo) {
+    super(nombre, ine);
+    this.nombre=nombre;
+    this.ine=ine;
+    this.carrera=carrera;
+    this.matricula=matricula;
+    this.ciclo=ciclo;
+  }
+
+  public boolean verificar_cupo(Materia materia) {
+    if (materia.getCupo()>= 1) return true;
+    return false;
+  }
+
+  //método heredado que exhibe conducta propia de la clase hija
+  //sobreescritura de método padre
+  @Override
+  public String inscribirse(String actividad) {
+    return "El alumno "+nombre+" INE "+ine+" perteneciente a la carrera "+carrera+" ha completado su inscripción";
+  }
+
+  //sobrecarga de método padre
+  public String inscribirse(String actividad, LocalDate fecha) {
+    return "Inscripción realizada para la actividad "+actividad+" a tener lugar el "+fecha;
+  }
+
+  public String inscribirse(Materia materia) {
+    if(verificar_cupo(materia)){
+        materia.tomarCupo();
+        return "Se completó la inscripción en "+materia.titulo;
+      }else{
+        return "No hay cupo disponible";
+      }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Materia informatica = new Materia("Informática", "Sociología");
+    Estudiante gabriel = new Estudiante("Gabriel Mena", 1323220, "Sociología", 90239102, "2022-1");
+
+    gabriel.inscribirse("Rubgy");
+
+    gabriel.inscribirse(informatica);
+    gabriel.inscribirse("Jornadas Estudiantiles", LocalDate.of(2022, java.time.Month.NOVEMBER, 23))
+  }
+}

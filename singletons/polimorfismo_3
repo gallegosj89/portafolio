@@ -1,0 +1,25 @@
+class Persona:
+  def __init__(self, nombre, ine):
+    self.nombre=nombre
+    self.ine=ine
+
+  def inscribirse(self, actividad):
+    raise NotImplementedError
+
+class Estudiante(Persona):
+  def __init__(self, nombre, ine, carrera):
+    super().__init__(nombre, ine)
+    self.carrera=carrera
+
+  def inscribirse(self, curso):
+    return "El alumno "+self.nombre+" documento de identidad nro "+str(self.ine)+" se ha inscrito exitosamente en el curso "+curso
+
+def inscribir(nombre, ine, curso = "Matemáticas", periodo ="2022-II"):
+  return "El alumno "+nombre+" ine nro "+str(ine)+" se ha inscrito en el curso "+curso+" en el periodo lectivo "+periodo
+
+st = Estudiante("Juan Moreno", 54458, "Ciencias de la Computación")
+st.inscribirse("Python para todos")
+
+inscribir("Juan Martir", 2323343)
+inscribir("Juan Martir", 2323343, "Ciencias Sociales")
+inscribir("Juan Martir", 2323343, "Ciencias Sociales", "2022-I")

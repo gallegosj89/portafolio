@@ -1,0 +1,76 @@
+public class Curso<T>{
+  private String titulo;
+  private T entidad;
+  private String semestre;
+
+  public Curso(String titulo, T entidad, String semestre){
+    this.titulo=titulo;
+    this.entidad=entidad;
+    this.semestre=semestre;
+  }
+
+  public String inscribirse(String nombre){
+    return "El alumno "+nombre+" se ha inscrito exitosamente en el curso "+titulo+" ofrecido por la/el "+entidad.toString()+" durante el periodo lectivo "+semestre;
+  }
+}
+
+public class Facultad{
+  String nombre;
+  int nroEscuelas;
+
+  public Facultad(String nombre, int nroEscuelas){
+    this.nombre=nombre;
+    this.nroEscuelas=nroEscuelas;
+  }
+
+  @Override
+  public String toString(){
+    return nombre;
+  }
+}
+
+public class Escuela{
+  Facultad facultad;
+  String nombre;
+
+  public Escuela(Facultad facultad, String nombre){
+    this.facultad=facultad;
+    this.nombre=nombre;
+  }
+
+  @Override
+  public String toString(){
+    return nombre;
+  }
+}
+
+public class Instituto{
+ Facultad facultad;
+ String nombre;
+ int nroInvestigadores;
+
+  public Instituto(Facultad facultad, String nombre, int nroInvestigadores){
+    this.facultad=facultad;
+    this.nombre=nombre;
+    this.nroInvestigadores=nroInvestigadores;
+  }
+
+  @Override
+  public String toString(){
+    return nombre;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Facultad facultad_de_ciencias = new Facultad("Facultad de Ciencias", 4);
+    Instituto instituto_avanzado = new Instituto(facultad_de_ciencias, "Instituto de Estudios Avanzados", 40);
+    Curso<Escuela> python_per_tutti = new Curso<>("Python per tutti", new Escuela(facultad_de_ciencias, "Escuela de Computación"), "2022-2");
+    Curso<Facultad> curso_inductorio = new Curso<>("Curso inductorio", facultad_de_ciencias, "2022-1");
+    Curso<Instituto> algoritmos_geneticos = new Curso<>("Algoritmos genéticos", instituto_avanzado, "2022-1");
+
+    python_per_tutti.inscribirse("Juan Linares");
+    algoritmos_geneticos.inscribirse("Pino Piatelli");
+    curso_inductorio.inscribirse("Mario Balotelli");
+  }
+}
