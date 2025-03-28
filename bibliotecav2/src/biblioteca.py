@@ -48,12 +48,12 @@ class Book:
     def from_dict(data):
         '''Método para crear un objeto libro a partir de un diccionario'''
         return Book(
-            data["id"],
+            int(data["id"]),
             data["title"],
             data["author"],
-            data["publication_year"],
+            int(data["publication_year"]),
             data["genre"],
-            data["quantity"]
+            int(data["quantity"])
         )
 
 
@@ -74,12 +74,12 @@ class DigitalBook(Book):
     def from_dict(data):
         '''Método para crear un objeto libro digital a partir de un diccionario'''
         return DigitalBook(
-            data["id"],
+            int(data["id"]),
             data["title"],
             data["author"],
-            data["publication_year"],
+            int(data["publication_year"]),
             data["genre"],
-            data["quantity"],
+            int(data["quantity"]),
             data["file_format"]
         )
 
@@ -107,7 +107,7 @@ class Member:
     @staticmethod
     def from_dict(data):
         '''Método para crear un objeto miembro a partir de un diccionario'''
-        member = Member(data["id"], data["name"])
+        member = Member(int(data["id"]), data["name"])
         member.issued_books = data["issued_books"]
         return member
 
@@ -158,6 +158,7 @@ class Library:
         '''Método para prestar un libro a un miembro'''
         book = self.find_book_by_id(book_id)
         member = self.find_member_by_id(member_id)
+        print(f"\nDebug##book[{book}] member[{member}] \n")
         if book and member and book.quantity > 0:
             book.quantity -= 1
             member.issued_books.append(book_id)

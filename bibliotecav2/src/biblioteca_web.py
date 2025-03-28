@@ -34,13 +34,13 @@ def add_book():
     is_digital = data.get('is_digital', False)
     if is_digital:
         book = DigitalBook(
-            data['id'], data['title'], data['author'], data['publication_year'],
+            int(data['id']), data['title'], data['author'], data['publication_year'],
             data['genre'], data['quantity'], data['file_format']
         )
     else:
         book = Book(
-            data['id'], data['title'], data['author'], data['publication_year'],
-            data['genre'], data['quantity']
+            int(data['id']), data['title'], data['author'], int(data['publication_year']),
+            data['genre'], int(data['quantity'])
         )
     library.add_book(book)
     # Guardar datos después de agregar un libro
@@ -60,7 +60,8 @@ def get_members():
 def add_member():
     '''Agregar un miembro a la biblioteca.'''
     data = request.json
-    member = Member(data['id'], data['name'])
+    member_id = int(data['id'])
+    member = Member(member_id, data['name'])
     library.add_member(member)
     # Guardar datos después de agregar un miembro
     library.save_members_to_file("members.json")
@@ -72,7 +73,9 @@ def add_member():
 def issue_book():
     '''Prestar un libro a un miembro de la biblioteca.'''
     data = request.json
-    library.issue_book(data['book_id'], data['member_id'])
+    book_id = int(data['book_id'])
+    member_id = int(data['member_id'])
+    library.issue_book(book_id, member_id)
     # Guardar datos después de prestar un libro
     library.save_library_to_file("library.json")
     library.save_members_to_file("members.json")
@@ -84,7 +87,9 @@ def issue_book():
 def return_book():
     '''Devolver un libro a la biblioteca.'''
     data = request.json
-    library.return_book(data['book_id'], data['member_id'])
+    book_id = int(data['book_id'])
+    member_id = int(data['member_id'])
+    library.return_book(book_id, member_id)
     # Guardar datos después de devolver un libro
     library.save_library_to_file("library.json")
     library.save_members_to_file("members.json")
