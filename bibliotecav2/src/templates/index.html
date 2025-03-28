@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Biblioteca</h1>
+
+        <h2>Agregar Libro</h2>
+        <form id="addBookForm" class="mb-4">
+            <div class="form-group">
+                <label for="bookId">ID:</label>
+                <input type="number" class="form-control" id="bookId" name="id" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Titulo:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Autor:</label>
+                <input type="text" class="form-control" id="author" name="author" required>
+            </div>
+            <div class="form-group">
+                <label for="publicationYear">Año de Publicación:</label>
+                <input type="number" class="form-control" id="publicationYear" name="publication_year" required>
+            </div>
+            <div class="form-group">
+                <label for="genre">Género:</label>
+                <select class="form-control" id="genre" name="genre" required></select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Cantidad:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="isDigital" name="is_digital">
+                <label class="form-check-label" for="isDigital">¿Es un libro digital?</label>
+            </div>
+            <div id="digitalBookFields" style="display: none;">
+                <div class="form-group">
+                    <label for="fileFormat">Formato del Archivo:</label>
+                    <input type="text" class="form-control" id="fileFormat" name="file_format">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Libro</button>
+        </form>
+
+        <h2>Libros</h2>
+        <table class="table table-striped mb-4" id="booksTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Año de Publicación</th>
+                    <th>Género</th>
+                    <th>Cantidad</th>
+                    <th>Formato del Archivo</th>
+                </tr>
+            </thead>
+            <tbody id="books"></tbody>
+        </table>
+
+        <h2>Agregar Miembro</h2>
+        <form id="addMemberForm" class="mb-4">
+            <div class="form-group">
+                <label for="memberId">ID:</label>
+                <input type="number" class="form-control" id="memberId" name="id" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Miembro</button>
+        </form>
+
+        <h2>Miembros</h2>
+        <table class="table table-striped mb-4" id="membersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Libros Prestados</th>
+                </tr>
+            </thead>
+            <tbody id="members"></tbody>
+        </table>
+
+        <h2>Prestar Libro</h2>
+        <form id="issueBookForm" class="mb-4">
+            <div class="form-group">
+                <label for="issueBookId">ID del Libro:</label>
+                <input type="number" class="form-control" id="issueBookId" name="book_id" required>
+            </div>
+            <div class="form-group">
+                <label for="issueMemberId">ID del Miembro:</label>
+                <input type="number" class="form-control" id="issueMemberId" name="member_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Prestar Libro</button>
+        </form>
+
+        <h2>Devolver Libro</h2>
+        <form id="returnBookForm" class="mb-4">
+            <div class="form-group">
+                <label for="returnBookId">ID del Libro:</label>
+                <input type="number" class="form-control" id="returnBookId" name="book_id" required>
+            </div>
+            <div class="form-group">
+                <label for="returnMemberId">ID del Miembro:</label>
+                <input type="number" class="form-control" id="returnMemberId" name="member_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Devolver Libro</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
