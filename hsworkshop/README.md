@@ -1,4 +1,4 @@
-# Práctica 4
+# Práctica 3
 
 ## Instalando Haskell en la máquina local
 
